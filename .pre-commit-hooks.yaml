@@ -1,0 +1,37 @@
+---
+- id: psscriptanalyzer-check
+  name: check PowerShell code using PSScriptAnalyzer
+  language: script
+  entry: PSScriptAnalyzer-wrapper.ps1 -Check
+  args:
+    - -ExcludeRule
+    - PSUseBOMForUnicodeEncodedFile
+    - -Fix
+  types:
+    - file
+  files: \.ps[dm]?1$
+- id: psscriptanalyzer-format
+  name: format PowerShell code using PSScriptAnalyzer
+  language: script
+  entry: PSScriptAnalyzer-wrapper.ps1 -Format
+  types:
+    - file
+  files: \.ps[dm]?1$
+- id: psscriptanalyzer-check-docker
+  name: check PowerShell code using PSScriptAnalyzer
+  language: docker
+  entry: PSScriptAnalyzer-wrapper.ps1 -Check
+  args:
+    - -ExcludeRule
+    - PSUseBOMForUnicodeEncodedFile
+    - -Fix
+  types:
+    - file
+  files: \.ps[dm]?1$
+- id: psscriptanalyzer-format-docker
+  name: format PowerShell code using PSScriptAnalyzer
+  language: docker
+  entry: PSScriptAnalyzer-wrapper.ps1 -Format
+  types:
+    - file
+  files: \.ps[dm]?1$

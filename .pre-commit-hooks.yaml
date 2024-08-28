@@ -2,7 +2,7 @@
 - id: psscriptanalyzer-check
   name: check PowerShell code using PSScriptAnalyzer
   language: script
-  entry: PSScriptAnalyzer-wrapper.ps1 -Check
+  entry: pre-commit-run.sh -Check
   args:
     - -ExcludeRule
     - PSUseBOMForUnicodeEncodedFile
@@ -10,17 +10,19 @@
   types:
     - file
   files: \.ps[dm]?1$
+
 - id: psscriptanalyzer-format
   name: format PowerShell code using PSScriptAnalyzer
   language: script
-  entry: PSScriptAnalyzer-wrapper.ps1 -Format
+  entry: pre-commit-run.sh -Format
   types:
     - file
   files: \.ps[dm]?1$
+
 - id: psscriptanalyzer-check-docker
   name: check PowerShell code using PSScriptAnalyzer
   language: docker
-  entry: PSScriptAnalyzer-wrapper.ps1 -Check
+  entry: -Check
   args:
     - -ExcludeRule
     - PSUseBOMForUnicodeEncodedFile
@@ -28,10 +30,11 @@
   types:
     - file
   files: \.ps[dm]?1$
+
 - id: psscriptanalyzer-format-docker
   name: format PowerShell code using PSScriptAnalyzer
   language: docker
-  entry: PSScriptAnalyzer-wrapper.ps1 -Format
+  entry: -Format
   types:
     - file
   files: \.ps[dm]?1$

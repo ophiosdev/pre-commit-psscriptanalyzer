@@ -67,5 +67,6 @@ The `psscriptanalyzer-format-docker` hook supports the same options.
 ## Copyright and license
 
 © 2023 Mohamed El Morabity
+© 2024 Ophios GmbH
 
 Licensed under the [GNU GPL, version 3.0 or later](LICENSE).

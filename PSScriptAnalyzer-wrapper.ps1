@@ -1,8 +1,8 @@
-#!/usr/bin/env pwsh
-
 # Copyright © 2023 Mohamed El Morabity
+# Copyright © 2024 Ophios GmbH
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+[CmdletBinding()]
 Param(
     # Analyze options
     [Parameter(Mandatory = $true, ParameterSetName = 'Check', Position = 0)]
@@ -37,8 +37,12 @@ Param(
     [String]$Settings
 )
 
-Set-StrictMode -Version Latest
+if ([Environment]::GetEnvironmentVariable('PRE_COMMIT_PWSH_VERBOSE')) {
+    $VerbosePreference = 'Continue'
+}
 $ErrorActionPreference = 'Stop'
+
+Set-StrictMode -Version Latest
 
 # Install PSScriptAnalyzer if not available
 if (-not (Get-InstalledModule PSScriptAnalyzer -ErrorAction SilentlyContinue)) {

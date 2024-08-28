@@ -1,31 +1,36 @@
 ---
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.6.0
     hooks:
-      - id: check-merge-conflict
-      - id: check-yaml
-      - id: end-of-file-fixer
-      - id: mixed-line-ending
-        args:
-          - --fix=lf
-      - id: trailing-whitespace
+      - id: "check-added-large-files"
+      - id: "fix-byte-order-marker"
+      - id: "check-case-conflict"
+      - id: "check-json"
+        exclude: ".vscode/"
+      - id: "end-of-file-fixer"
+      - id: "trailing-whitespace"
+      - id: "mixed-line-ending"
+      - id: "check-merge-conflict"
+
   - repo: https://github.com/hadolint/hadolint
     rev: v2.12.0
     hooks:
       - id: hadolint-docker
+
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.33.0
+    rev: v0.41.0
     hooks:
       - id: markdownlint-docker
         args:
           - --disable=MD013
+
   - repo: local
     hooks:
       - id: psscriptanalyzer-check
         name: check PowerShell code using PSScriptAnalyzer
         language: script
-        entry: PSScriptAnalyzer-wrapper.ps1 -Check
+        entry: pre-commit-run.sh -Check
         args:
           - -ExcludeRule
           - PSUseBOMForUnicodeEncodedFile
@@ -33,10 +38,11 @@ repos:
         types:
           - file
         files: \.ps[dm]?1$
+
       - id: psscriptanalyzer-format
         name: format PowerShell code using PSScriptAnalyzer
         language: script
-        entry: PSScriptAnalyzer-wrapper.ps1 -Format
+        entry: pre-commit-run.sh -Format
         types:
           - file
         files: \.ps[dm]?1$

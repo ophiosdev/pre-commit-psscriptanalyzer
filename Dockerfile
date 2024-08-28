@@ -1,9 +1,13 @@
-FROM mcr.microsoft.com/powershell:lts-alpine-3.14
+# Copyright © 2023 Mohamed El Morabity
+# Copyright © 2024 Ophios GmbH
+# SPDX-License-Identifier: GPL-3.0-or-later
 
-COPY PSScriptAnalyzer-wrapper.ps1 /usr/local/bin/
-RUN chmod 0755 /usr/local/bin/PSScriptAnalyzer-wrapper.ps1 && \
-    pwsh -Command \
+FROM mcr.microsoft.com/powershell:lts-alpine
+
+RUN pwsh -Command \
     "Set-PSRepository -ErrorAction Stop -InstallationPolicy Trusted -Name PSGallery -Verbose; \
     Install-Module -ErrorAction Stop -Name PSScriptAnalyzer -Scope AllUsers"
 
-ENTRYPOINT ["/usr/local/bin/PSScriptAnalyzer-wrapper.ps1"]
+COPY --chmod=755 PSScriptAnalyzer-wrapper.ps1 /usr/local/bin/
+
+ENTRYPOINT ["pwsh", "-Command", "/usr/local/bin/PSScriptAnalyzer-wrapper.ps1"]
